@@ -18,14 +18,8 @@
       >
         Search
       </button>
-      <i class="fa fa-shopping-cart fa-2x" @click.prevent="goTocart"></i>
-      <span
-        class="badge badge-warning"
-        id="lblCartCount"
-        v-if="cartItems.length > 0"
-      >
-        {{ cartItems.length }}</span
-      >
+          <shopping-cart-icon :cartItemsCount="cartItems.length" @go-to-cart="goToCart"></shopping-cart-icon>
+
     </form>
   </nav>
   <product-item
@@ -35,9 +29,11 @@
 </template>
 <script>
 import ProductItem from "./ProductItem.vue";
+import ShoppingCartIcon from "./UI/ShoppingCartIcon.vue";
 export default {
   components: {
     ProductItem,
+    ShoppingCartIcon,
   },
   data() {
     return {
@@ -71,8 +67,8 @@ export default {
       );
       this.cartItems.push(product);
     },
-    goTocart() {
-      console.log("cart items", this.cartItems);
+    goToCart() {
+      this.$router.push("/cartIems");
     },
   },
   computed: {
@@ -93,24 +89,4 @@ export default {
 };
 </script>
 <style scoped>
-.badge {
-  padding-left: 9px;
-  padding-right: 9px;
-  -webkit-border-radius: 9px;
-  -moz-border-radius: 9px;
-  border-radius: 9px;
-}
-
-.label-warning[href],
-.badge-warning[href] {
-  background-color: #c67605;
-}
-#lblCartCount {
-  font-size: 12px;
-  background: #ff0000;
-  color: #fff;
-  padding: 0 5px;
-  vertical-align: top;
-  margin-left: -10px;
-}
 </style>
