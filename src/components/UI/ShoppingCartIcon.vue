@@ -1,7 +1,9 @@
 <template>
 <div @click="addToCart">
+  <span><slot></slot>
   <i class="fa fa-shopping-cart fa-2x" ></i>
-  <span class="badge badge-warning" id="lblCartCount" v-if="cartItemsCount > 0">{{ cartItemsCount }}</span>
+  <span class="badge badge-warning" id="lblCartCount" v-if="cartItemsCount > 0">{{ cartItemsCount }}</span></span>
+  
 </div>
 </template>
 <script>

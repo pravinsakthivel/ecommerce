@@ -1,67 +1,48 @@
 <template>
   <div class="container-fluid">
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-4">My Cart</h1>
-       
-      </div>
-    </div>
-    <div class="row" v-for="item in cartItems" :key="item.productId">
-      <div class="col-12 mt-3">
-        <div class="card">
-          <div class="card-horizontal">
-            <div class="img-square-wrapper">
-              <img
-                :src="item.productImage"
-                alt="Card image"
-                class=" img-height"
-              />
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">{{ item.productName }}</h4>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <form class="form-inline">
-                <label for="quantity"><strong>Quantity : </strong></label>
-                <input
-                  type="number"
-                  class="form-control ml-2"
-                  value="1"
-                  min="1"
-                  @change="setTotalPrice($event, item.productId)"
-                />
-              </form>
+    <the-jumbotron>My Cart</the-jumbotron>
+    <div class="card mb-2" v-for="item in cartItems" :key="item.productId">
+      <img :src="item.productImage" class="card-img-top" alt="productImage" />
+      <div class="card-body">
+        <h5 class="card-title">{{ item.productName }}</h5>
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p>
+        <form class="form-inline">
+          <label for="quantity"><strong>Quantity : </strong></label>
+          <input
+            type="number"
+            class="form-control ml-2"
+            value="1"
+            min="1"
+            @change="setTotalPrice($event, item.productId)"
+          />
+        </form>
 
-              <p>
-                <strong>
-                  Price : $
-                  <span
-                    v-text="item.cartValue ? item.cartValue : item.price"
-                  ></span
-                ></strong>
-              </p>
-              <base-button @click-action="removeFromCart(item.productId)"
-                >Remove Item</base-button
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer">
-        <small class="text-muted">Last updated 3 mins ago</small>
+        <p>
+          <strong>
+            Price : $
+            <span v-text="item.cartValue ? item.cartValue : item.price"></span
+          ></strong>
+        </p>
+        <base-modal @remove-item = "removeFromCart(item.productId)"></base-modal>
+        <!-- <base-button @click-action="removeFromCart(item.productId)"
+          >Remove Item</base-button
+        > -->
       </div>
     </div>
-    <div v-if="cartItems.length < 1">
-      <div class="alert alert-info">
+
+    <div v-if="cartItems.length < 1" class="text-center">
+      <div class="alert alert-info ">
         <strong>Your Cart is Empty!!</strong> Go to products to add items.
       </div>
-      <base-button @click-action="goToProducts">Explore Items</base-button>
+      <base-button link toPage="/products">Explore Items</base-button>
     </div>
     <form v-else class="text-center">
-      <payment-details :cartItems="cartItems"></payment-details>
+      <payment-details></payment-details>
     </form>
+    
   </div>
 </template>
 <script>
@@ -83,9 +64,6 @@ export default {
     removeFromCart(productId) {
       this.$store.dispatch("products/removeCartItem", productId);
     },
-    goToProducts() {
-      this.$router.push("/products");
-    },
     itemPrice(price) {
       return this.quantity * price;
     },
@@ -104,12 +82,15 @@ export default {
 };
 </script>
 <style scoped>
-.card-horizontal {
-  display: flex;
-  flex: 1 1 auto;
+.card {
+  flex-direction: row;
+}
+.card img {
+  width: 30%;
 }
 .img-height {
-  height: 15vw;
+  height: 300px;
+  width: 300px;
   object-fit: cover;
 }
 </style>

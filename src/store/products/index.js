@@ -8,6 +8,10 @@ export default{
         return{
             products: [],
             cartItems: [],
+            productsIdsInCart:[],
+            searchedItems:[],
+            lastUpdated:null,
+            loggedInUser :''
         }
     },
     actions,

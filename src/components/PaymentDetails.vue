@@ -18,59 +18,32 @@
         <tr>
           <td colspan="2" class="text-right">Total Amount</td>
           <td>
-            <strong>$ {{ totalPrice }}</strong>
+            <strong>$ {{ totalCartValue }}</strong>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div id="paypal-button"></div>
+  <paypal-component :cartValue="totalCartValue"></paypal-component>
 </template>
 <script>
+import PaypalComponent from './PayPalComponent.vue';
 export default {
-  props: ["cartItems"],
+  components:{
+    PaypalComponent
+  },
   computed: {
-    totalPrice() {
+    totalCartValue() {
       let cartvalue = 0;
       this.cartItems.forEach((element) => {
         cartvalue += element.cartValue ? element.cartValue : element.price;
       });
+      console.log(cartvalue)
       return cartvalue;
     },
-  },
-  mounted() {
-    let paypalScript = document.createElement("script");
-    paypalScript.setAttribute(
-      "src",
-      "https://www.paypal.com/sdk/js?client-id=AVqt9vrCUVqfc7P88IdNEju9AuBGJq-97Q6YjIoat7qiJp9kvvh4UoYTX6ck6Du60ubYApPewCvAZViN"
-    );
-    paypalScript.addEventListener("load", this.setLoaded);
-    document.head.appendChild(paypalScript);
-  },
-  methods: {
-    setLoaded() {
-    let totalCartValue = this.totalPrice;
-      window.paypal.Buttons({
-          createOrder: function(data, actions) {
-      // This function sets up the details of the transaction, including the amount and line item details.
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: totalCartValue
-          }
-        }]
-      });
-    },
-    onApprove: function(data, actions) {
-      // This function captures the funds from the transaction.
-      return actions.order.capture().then(function(details) {
-        // This function shows a transaction success message to your buyer.
-        console.log("Transaction done")
-        alert('Transaction completed by ' + details.payer.name.given_name);
-      });
+    cartItems(){
+      return this.$store.getters['products/getCartItems']
     }
-      }).render("#paypal-button");
-    },
-  },
+  }
 };
 </script>

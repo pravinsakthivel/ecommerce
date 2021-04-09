@@ -1,104 +1,68 @@
 <template>
-  <nav class="navbar navbar-light bg-light justify-content-between">
-    <a class="navbar-brand" href="#" @click.prevent="goToProducts">
-      <img src="../assets/continental.png" width="130" height="60" alt="" />
-    </a>
-    <form class="form-inline">
-      <input
-        class="form-control mr-sm-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-        v-model="searchText"
-      />
-
-      <base-button @click-action="searchProduct">Search</base-button>
-      <shopping-cart-icon
-        :cartItemsCount="cartItems.length"
-        @go-to-cart="goToCart"
-      ></shopping-cart-icon>
-    </form>
-  </nav>
-  <div class="mt-5">
-    <product-item
-      :products="productItems"
-      @add-to-cart="addToCart"
-    ></product-item>
+  <div class="container-fluid">
+    
+<navigation-bar></navigation-bar>
+<search-bar @search-product="searchProduct"></search-bar>
+   
+    <div class=" row mt-5">
+      <product-item :productsList="productToDisplay"></product-item>
+    </div>
   </div>
 </template>
 <script>
 import ProductItem from "./ProductItem.vue";
-import ShoppingCartIcon from "./UI/ShoppingCartIcon.vue";
+import NavigationBar from "./UI/NavigationBar.vue";
+import SearchBar from "./UI/SearchBar.vue";
 export default {
   components: {
     ProductItem,
-    ShoppingCartIcon,
+    NavigationBar,
+    SearchBar
   },
   data() {
     return {
-      searchText: "",
+      onSearch: false,
     };
   },
   created() {
-   this.$store.dispatch('products/loadProducts');
+    this.$store.dispatch("products/loadProducts", false);
   },
   methods: {
-    
-    addToCart(productId) {
-      let productItems = this.$store.getters["products/getProducts"];
-      let item = productItems.find((product) => product.productId == productId);
-      this.$store.dispatch("products/updateCart", item);
-
-      //update the productItems array
-      productItems.forEach((element) => {
-        if (element.productId == productId) {
-          element["inCart"] = true;
-          element["quantity"] = 1;
-          element["cartvalue"] = element.price;
-        }
-      });
-      this.$store.dispatch("products/setProducts", productItems);
-    },
-    goToCart() {
-      this.$router.push("/cartIems");
-    },
-    goToProducts(){
-      window.location.reload();
-    },
-    searchProduct() {
-      this.isItemAddedToCart();
+    searchProduct(searchText) {
+      this.onSearch = true;
       let products = this.$store.getters["products/getProducts"];
-      let searchResults =[];
-      if (this.searchText != "") {
-       searchResults= products.filter((product) => {
+      let searchResults = [];
+      if (searchText != "") {
+        searchResults = products.filter((product) => {
           let productName = product.productName;
           return (
-            productName.toUpperCase().indexOf(this.searchText.toUpperCase()) !=
+            productName.toUpperCase().indexOf(searchText.toUpperCase()) !=
             -1
           );
         });
       }
-      this.$store.dispatch("products/setProducts", searchResults);
+      this.$store.dispatch("products/setSearchedItems", searchResults);
     },
-    isItemAddedToCart() {
-      let productsInCart = this.$store.getters["products/getCartItemsId"];
-      let products = this.$store.getters["products/getProducts"];
-      products.forEach((product) => {
-        if (productsInCart.includes(product.productId)) {
-          product["inCart"] = true;
-        }
-      });
-      this.$store.dispatch("products/setProducts", products);
-    }
+    goToHome() {
+      this.$router.push("/products");
+    },
   },
   computed: {
-    productItems() {
-        this.isItemAddedToCart();
-        return this.$store.getters["products/getProducts"];
-    },
-    cartItems() {
-      return this.$store.getters["products/getCartItems"];
+    
+    productToDisplay() {
+      if (this.onSearch) {
+        return this.$store.getters["products/getSearchItems"];
+      }
+      return this.$store.getters["products/getProducts"];
     },
   },
 };
 </script>
+<style scoped>
+.input-width {
+  width: 100%;
+}
+.img-width {
+  width: 100px;
+}
+</style>

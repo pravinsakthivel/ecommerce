@@ -1,54 +1,78 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div
-        class="col-sm-3"
-        v-for="(product, index) in products"
-        :key="product.id"
-      >
-        <div class="card">
-          <div class="card-body">
-            <img
-              :src="product.productImage"
-              class="card-img-top img-height"
-              alt="..."
-              height="100px"
-            />
-            <hr />
-            <h5 class="card-title">
-              {{ product.productName }}
-              <base-badge v-if="product.inCart">In cart</base-badge>
-            </h5>
-            <p class="card-text">
-              With supporting text below as a natural lead-in to additional
-              content.
-            </p>
-            <button
-              class="btn btn-primary"
-              @click.prevent="addToCart(product.productId, index)"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
+  <div
+    class="col-md-6  col-lg-3 col-sm-12 mb-2"
+    v-for="product in productsList"
+    :key="product.id"
+  >
+    <div class="card h-100 ">
+      <div class="card-body">
+        <img
+          :src="product.productImage"
+          class="card-img-top img-height"
+          alt="img"
+        />
+        <hr />
+        <h5 class="card-title">
+          {{ product.productName }}
+          <base-badge v-if="productsIncart.includes(product.productId)"
+            >In cart</base-badge
+          >
+        </h5>
+        <hr />
+        <p class="card-text">
+          <strong>Price : ${{ product.price }}</strong>
+        </p>
+        <base-button
+          @click-action="addToCart(product)"
+          :disabled="productsIncart.includes(product.productId)"
+          >Add to Cart</base-button
+        >
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: ["products"],
-  emits: ["add-to-cart"],
+  props: ["productsList"],
   methods: {
-    addToCart(productId) {
-      this.$emit("add-to-cart", productId);
+    addToCart(product) {
+      product["inCart"] = true;
+      product["quantity"] = 1;
+      this.$store.dispatch("products/addProductItemToCart", product);
     },
-  }
+  },
+  computed: {
+    productsIncart() {
+      return this.$store.getters["products/getproductIdsIncart"];
+    },
+  },
 };
 </script>
 <style scoped>
 .img-height {
-  height: 15vw;
+  height: 300px;
+  width: 232px;
   object-fit: cover;
+}
+@media (min-width: 320px) {
+  .img-height {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+@media (min-width: 480px) {
+  .img-height {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+@media (min-width: 600px) {
+  .img-height {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+  }
 }
 </style>

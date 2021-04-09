@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ProductList from "./components/ProductList.vue";
 import CartList from "./components/CartList.vue";
+import OrderSuccessPage from "./components/UI/OrderSuccess.vue";
+import LoginPage from "./components/UI/LoginPage.vue";
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: "/",
-      redirect: "/products",
+      redirect: "/login",
     },
     {
       path: "/cartIems",
@@ -16,6 +18,14 @@ const router = createRouter({
     {
       path: "/products",
       component: ProductList,
+    },
+    {
+      path: "/orderSuccessPage",
+      component: OrderSuccessPage,
+    },
+    {
+      path: "/login",
+      component: LoginPage,
     },
   ],
 });
