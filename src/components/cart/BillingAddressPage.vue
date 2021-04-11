@@ -88,7 +88,7 @@
             :disabled="disabled"
           >
             <option value="">Choose...</option>
-            <option>Bangalore</option>
+            <option>Karnataka</option>
           </select>
         </div>
         <div class="col-md-3 mb-3">
