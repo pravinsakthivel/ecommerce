@@ -4,7 +4,7 @@
     v-for="product in productsList"
     :key="product.id"
   >
-    <div class="card-deck mb-3">
+    <div class=" card mb-3">
       <div class="card-body d-flex flex-column">
         <img
           :src="product.productImage"
@@ -26,11 +26,12 @@
           <base-button
             @click-action="addToCart(product)"
             :disabled="productsIncart.includes(product.productId)"
+            customClass="ml-2"
             >Add to Cart</base-button
           >
           <base-button
             @click-action="showDescription(product)"
-            customClass="ml-2"
+            customClass="ml-5"
             >Details</base-button
           >
         </div>
@@ -64,6 +65,15 @@ export default {
   height: 300px;
   width: 232px;
   object-fit: cover;
+}
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 @media (min-width: 320px) {
