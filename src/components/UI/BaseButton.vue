@@ -38,7 +38,7 @@ export default {
 };
 </script>
 <style scoped>
-.btn-sbackground-black {
+.btn-background-black {
   background-color: black;
   color: white;
 }
