@@ -10,7 +10,7 @@ npm install
 npm run serve
 ```
 
-### paypal sandbox account details
+### Paypal sandbox account details
 
 ```
 UserName : sb-rcxi45851703@personal.example.com
