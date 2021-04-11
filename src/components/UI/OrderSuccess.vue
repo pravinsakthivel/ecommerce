@@ -10,7 +10,7 @@
       We received your purchase request;<br />
       we'll be in touch shortly!
     </p>
-        <base-button link toPage="/products">Go To Home</base-button>
+        <base-button link toPage="/products" customClass="mt-5">Go To Home</base-button>
       </div>
     </div>
   </div>

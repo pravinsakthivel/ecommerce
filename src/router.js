@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import ProductList from "./components/ProductList.vue";
-import CartList from "./components/CartList.vue";
-import OrderSuccessPage from "./components/UI/OrderSuccess.vue";
-import LoginPage from "./components/UI/LoginPage.vue";
-import CheckoutPage from "./components/CheckoutPage.vue";
+import ProductList from "./components/products/ProductList.vue";
+import CartList from "./components/cart/CartList.vue";
+import OrderSuccessPage from "./components/ui/OrderSuccess.vue";
+import LoginPage from "./components/LoginPage.vue";
+import CheckoutPage from "./components/cart/CheckoutPage.vue";
+import ErrorPage from "./components/ui/ErrorPage.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -31,6 +32,10 @@ const router = createRouter({
     {
       path:"/checkout",
       component:CheckoutPage
+    },
+    {
+      path:"/errorPage",
+      component:ErrorPage
     }
   ],
 });

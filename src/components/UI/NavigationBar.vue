@@ -48,6 +48,7 @@
 <script>
 import ShoppingCartIcon from "./ShoppingCartIcon.vue";
 export default {
+  emits:['go-to-home'],
   components: {
     ShoppingCartIcon
   },
@@ -64,15 +65,13 @@ export default {
       this.$router.push("/cartIems");
     },
     goToHome() {
-      //force refresh - dont get data from cache
-      this.$store.dispatch("products/loadProducts", true);
-      window.location.reload();
+      this.$emit('go-to-home');
     },
     logout(){
-      console.log("logout");
-      this.$store.dispatch("products/resetData","");
+     // console.log("logout");
+      this.$store.dispatch("products/resetData");
 
-      this.$router.replace("/login");
+      this.$router.push("/login");
     }
   }
 };

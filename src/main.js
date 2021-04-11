@@ -5,10 +5,10 @@ import store from './store.js';
 import 'bootstrap';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import BaseButton from "./components/UI/BaseButton.vue";
-import BaseBadge from './components/UI/BaseBadge.vue';
-import TheJumbotrom from './components/UI/TheJumbotron.vue';
-import BaseModal from './components/UI/BaseModal.vue';
+import BaseButton from "./components/ui/BaseButton.vue";
+import BaseBadge from './components/ui/BaseBadge.vue';
+import TheJumbotrom from './components/ui/TheJumbotron.vue';
+import BaseModal from './components/ui/BaseModal.vue';
 
 
 

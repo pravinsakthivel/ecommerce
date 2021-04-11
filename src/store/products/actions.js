@@ -1,15 +1,20 @@
 export default {
-  async loadProducts(context,forceRefresh) {
+  async loadProducts(context, forceRefresh) {
     //load products
-    if(!context.getters.shouldRefresh && !forceRefresh){
+    if (!context.getters.shouldRefresh && !forceRefresh) {
       //send cached data
+      console.log("send cached data");
       return;
     }
     let url = `https://products-data-b01f9-default-rtdb.firebaseio.com/products/-MXaxOFKGRgCKs_OkzrR.json`;
     let response = await fetch(url);
-    let responseData = await response.json();
-    context.commit("setProducts", responseData);
-    context.commit("setTimeStamp");
+    if (response.ok && response.status == 200) {
+      let responseData = await response.json();
+      context.dispatch("setProducts", responseData);
+      context.dispatch("setTimeStamp");
+    } else {
+      throw new Error("GET operation failed");
+    }
   },
   setProducts(context, payload) {
     //replace products with payload
@@ -22,7 +27,7 @@ export default {
     context.commit("setCartItems", cartItems);
   },
   addProductIdInCart(context, data) {
-    //add productId to cart 
+    //add productId to cart
     let productIdsInCart = [...context.getters.getproductIdsIncart, data];
     context.commit("setProductIdsInCart", productIdsInCart);
   },
@@ -49,30 +54,32 @@ export default {
     context.commit("setProductIdsInCart", productIdsInCart);
   },
   setSearchedItems(context, payload) {
-    //set products serached 
+    //set products serached
     context.commit("setSearchedItems", payload);
   },
-  setUser(context,userName){
+  setUser(context, userName) {
     //set current user
-    context.commit("setUser",userName);
+    context.commit("setUser", userName);
   },
-  resetProductIdsInCart(context){
+  resetProductIdsInCart(context) {
     //empty all  productId's from cart
-    context.commit("setProductIdsInCart",[])
+    context.commit("setProductIdsInCart", []);
   },
-  setCartValue(context,cartValue){
+  setCartValue(context, cartValue) {
     //set total cart value
-    context.commit("setCartValue",cartValue)
+    context.commit("setCartValue", cartValue);
   },
-  enablePayment(context,flag){
+  enablePayment(context, flag) {
     //enable/disable payment option
-    context.commit("enablePayment",flag);
+    context.commit("enablePayment", flag);
   },
-  resetData(context){
+  resetData(context) {
     context.commit("setProducts", []);
-    context.commit("setProductIdsInCart",[]);
+    context.commit("setProductIdsInCart", []);
     context.commit("setSearchedItems", []);
     context.commit("setCartItems", []);
-
-  }
+  },
+  setTimeStamp(context) {
+    context.commit("setTimeStamp");
+  },
 };
