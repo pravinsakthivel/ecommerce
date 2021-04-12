@@ -8,7 +8,7 @@ export default {
   mounted() {
     window.onpopstate = () => {//Disabling back button to login page if user is logged in
       if (
-        this.$store.getters["products/getUserName"] != "" &&
+        this.$store.getters["products/getLoggedInUser"] != "" &&
         this.$route.path == "/login"
       ) {
         this.$router.push("/products");
