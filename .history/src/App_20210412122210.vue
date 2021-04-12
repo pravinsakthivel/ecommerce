@@ -6,11 +6,13 @@
 export default {
   name: "App",
   mounted() {
-    window.onpopstate = () => {//Disabling back button to login page if user is logged in
+    window.onpopstate = (event) => {
       if (
         this.$store.getters["products/getUserName"] != "" &&
         this.$route.path == "/login"
       ) {
+        
+        console.log("navigating to products")
         this.$router.push("/products");
       }
     };
