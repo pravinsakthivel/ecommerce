@@ -11,17 +11,6 @@ export default {
     PaymentSummary
   },
   computed: {
-    totalCartValue() {
-      let cartvalue = 0;
-      this.cartItems.forEach((element) => {
-        cartvalue += element.cartValue ? element.cartValue : element.price;
-      });
-      console.log(cartvalue)
-      return cartvalue;
-    },
-    cartItems() {
-      return this.$store.getters["products/getCartItems"];
-    },
     displayPaymentOption(){
       return this.$store.getters["products/enablePaymentStatus"]
     }

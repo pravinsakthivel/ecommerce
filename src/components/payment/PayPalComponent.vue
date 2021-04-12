@@ -17,7 +17,6 @@ export default {
     loadPayPal() {
       let self = this;
       let cartValue = this.$store.getters["products/getCartValue"];
-      console.log("cartValue", cartValue);
       window.paypal
         .Buttons({
           createOrder: function(data, actions) {

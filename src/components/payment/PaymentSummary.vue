@@ -33,9 +33,7 @@ export default {
       this.cartItems.forEach((element) => {
         cartvalue += element.cartValue ? element.cartValue : element.price;
       });
-      console.log(cartvalue);
       this.$store.dispatch('products/setCartValue',cartvalue);
-      console.log(this.$store.getters['products/getCartValue'])
       return cartvalue;
     },
     cartItems() {

@@ -45,7 +45,6 @@ export default {
   emits: ["show-description"],
   methods: {
     addToCart(product) {
-      product["inCart"] = true;
       product["quantity"] = 1;
       this.$store.dispatch("products/addProductItemToCart", product);
     },
