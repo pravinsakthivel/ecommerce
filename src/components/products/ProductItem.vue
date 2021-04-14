@@ -1,11 +1,11 @@
 <template>
   <div
-    class="col-md-6  col-lg-3 col-sm-12 mb-2"
+    class="col-md-4  col-lg-3 col-sm-12 mb-2"
     v-for="product in productsList"
     :key="product.id"
   >
     <div class=" card mb-3">
-      <div class="card-body d-flex flex-column">
+      <div class="card-body ">
         <img
           :src="product.productImage"
           class="card-img-top img-height"
@@ -26,12 +26,12 @@
           <base-button
             @click-action="addToCart(product)"
             :disabled="productsIncart.includes(product.productId)"
-            customClass="ml-2"
+            customClass=""
             >Add to Cart</base-button
           >
           <base-button
             @click-action="showDescription(product)"
-            customClass="ml-5"
+            customClass="ml-5 sm-ml-2"
             >Details</base-button
           >
         </div>
@@ -75,25 +75,25 @@ export default {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-@media (min-width: 320px) {
+@media (max-width: 1200px) {
   .img-height {
     height: 200px;
     width: 100%;
     object-fit: cover;
   }
+  .sm-ml-2{
+    margin-left: 2px !important;
+  }
 }
-@media (min-width: 480px) {
+@media (max-width: 600px) { /* extra small devices */
   .img-height {
     height: 200px;
     width: 100%;
     object-fit: cover;
   }
-}
-@media (min-width: 600px) {
-  .img-height {
-    height: 200px;
-    width: 100%;
-    object-fit: cover;
+  
+  .sm-ml-2{
+    margin-left: 2px !important;
   }
 }
 </style>

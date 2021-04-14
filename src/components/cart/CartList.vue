@@ -88,4 +88,14 @@ export default {
 .card img {
   width: 20%;
 }
+
+@media (max-width: 600px) { /* extra small devices */
+  .card {
+  flex-direction: column;
+}
+
+.card img {
+  width: 100%;
+}
+}
 </style>
