@@ -44,7 +44,6 @@ export default {
       if (this.userName != "") {
         this.errorClass = false;
         this.$store.dispatch("products/setUser", this.userName);
-        this.$store.dispatch("products/loadProducts", true);
         this.$router.push("/products");
       } else {
         this.errorClass = true;

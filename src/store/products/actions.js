@@ -73,13 +73,17 @@ export default {
     //enable/disable payment option
     context.commit("enablePayment", flag);
   },
+  resetTimeStamp(context) {
+    context.commit("resetTimeStamp");
+  },
   resetData(context) {
     context.commit("setProducts", []);
     context.commit("setProductIdsInCart", []);
     context.commit("setSearchedItems", []);
     context.commit("setCartItems", []);
+    context.commit("resetTimeStamp");
   },
   setTimeStamp(context) {
     context.commit("setTimeStamp");
-  },
+  }
 };

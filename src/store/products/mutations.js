@@ -22,5 +22,8 @@ export default {
   },
   enablePayment(state,flag){
     state.enablePayment = flag;
+  },
+  resetTimeStamp(state){
+    state.lastUpdated = null;
   }
 };
