@@ -1,6 +1,6 @@
 <template>
   <div
-    class="col-md-6  col-lg-3 col-sm-12 mb-2 d-flex "
+    class="col-md-6  col-lg-3 col-sm-12 mb-2"
     v-for="product in productsList"
     :key="product.id"
   >
@@ -62,7 +62,7 @@ export default {
 <style scoped>
 .img-height {
   height: 300px;
-  width: 232px;
+  width: 100%;
   object-fit: cover;
 }
 .card {
