@@ -3,7 +3,6 @@
 </template>
 <script>
 export default {
-  props: ["enable"],
   mounted() {
     let paypalScript = document.createElement("script");
     paypalScript.setAttribute(
